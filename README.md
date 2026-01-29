@@ -61,6 +61,52 @@ Jika nanti environment berubah (host, user, password, nama database), cukup upda
 
 ---
 
+## Menjalankan dengan Docker (Port 2026)
+
+Backend ini bisa dijalankan via Docker dan akan expose API ke **port `2026`** pada host.
+
+### Prasyarat
+
+- Docker Desktop sudah terinstall dan berjalan.
+
+### Jalankan
+
+Di folder project:
+
+```bash
+docker compose up --build -d
+```
+
+Setelah itu API bisa diakses di:
+
+- `http://localhost:2026/api/docs`
+- `http://localhost:2026/api/v1/health`
+- `http://localhost:2026/api/v1/qa/tables`
+
+### Mengubah konfigurasi DB (Docker)
+
+Edit file `docker-compose.yml` pada bagian `environment`:
+
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+
+Lalu restart container:
+
+```bash
+docker compose up --build -d
+```
+
+### Stop
+
+```bash
+docker compose down
+```
+
+---
+
 ## Endpoint yang Tersedia
 
 Semua contoh di bawah menggunakan base URL:

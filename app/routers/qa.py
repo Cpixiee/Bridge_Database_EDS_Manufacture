@@ -74,6 +74,6 @@ def get_table_data(
         )
     except Error as e:
         # Misalnya tabel tidak ada, dsb.
-        raise HTTPException(status_code(500), detail=f"Database error: {e}") from e
+        raise HTTPException(status_code=500, detail=f"Database error: {e}") from e
 
 

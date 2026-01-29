@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    container_name: bridge_db_api
+    ports:
+      - "2026:8000"
+    environment:
+      # DB QA (ubah jika perlu)
+      DB_HOST: "10.62.144.231"
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASSWORD: "beny1234"
+      DB_NAME: "qa"
+    restart: unless-stopped
+

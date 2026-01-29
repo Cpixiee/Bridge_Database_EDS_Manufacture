@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.git/
+.idea/
+.vscode/
+
+venv/
+.venv/
+
+terminals/
+
+qa (1).sql
+
