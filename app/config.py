@@ -7,11 +7,12 @@ class Settings(BaseModel):
     app_name: str = "Cyber Backend API"
     version: str = "1.0.0"
 
-    db_host: str = "103.236.140.19"
+    # Konfigurasi database QA
+    db_host: str = "10.62.144.231"
     db_port: int = 3306
     db_user: str = "root"
-    db_password: str = "cyber"
-    db_name: str = "cyber"
+    db_password: str = "beny1234"
+    db_name: str = "qa"
 
 
 @lru_cache
