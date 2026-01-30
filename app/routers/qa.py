@@ -6,6 +6,7 @@ from mysql.connector import MySQLConnection, Error
 
 from ..database import get_db
 from ..schemas import APIResponse
+from ..config import get_settings
 
 router = APIRouter(prefix="/api/v1/qa", tags=["QA Database"])
 
@@ -28,9 +29,11 @@ def list_tables(db: MySQLConnection = Depends(get_db)) -> APIResponse:
     """
     Mengambil daftar semua tabel di database `qa`.
     """
+    settings = get_settings()
     try:
         cursor = db.cursor()
-        cursor.execute("SHOW TABLES")
+        # Gunakan query yang lebih eksplisit dengan nama database
+        cursor.execute(f"SHOW TABLES FROM `{settings.db_name}`")
         rows = cursor.fetchall()
         cursor.close()
 
@@ -42,7 +45,15 @@ def list_tables(db: MySQLConnection = Depends(get_db)) -> APIResponse:
             data=tables,
         )
     except Error as e:
-        raise HTTPException(status_code=500, detail=f"Database error: {e}") from e
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Database error: {str(e)}. Check DB connection to {settings.db_host}:{settings.db_port}"
+        ) from e
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        ) from e
 
 
 @router.get("/{table_name}", response_model=APIResponse)

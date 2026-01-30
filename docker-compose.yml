@@ -3,13 +3,14 @@ services:
     build: .
     container_name: bridge_db_api
     ports:
-      - "2026:8000"
+      - "8000:8000"  # Changed from 2026:8000 to match user's expected port
     environment:
       # DB QA (ubah jika perlu)
-      DB_HOST: "10.62.144.231"
+      DB_HOST: "103.236.140.19"
       DB_PORT: "3306"
       DB_USER: "root"
       DB_PASSWORD: "beny1234"
       DB_NAME: "qa"
     restart: unless-stopped
+    network_mode: bridge  # Explicit network mode for external DB access
 

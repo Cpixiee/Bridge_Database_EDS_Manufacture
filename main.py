@@ -31,7 +31,7 @@ def create_app() -> FastAPI:
 
     @app.get("/api/v1/health")
     def health_check():
-        return {"status": "ok", "message": "Cyber Backend API is running"}
+        return {"status": "ok", "message": "Bridge Database EDS Manufacture is running"}
 
     return app
 
