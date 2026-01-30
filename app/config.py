@@ -12,7 +12,7 @@ class Settings(BaseModel):
     db_host: str = os.getenv("DB_HOST", "103.236.140.19")
     db_port: int = int(os.getenv("DB_PORT", "3306"))
     db_user: str = os.getenv("DB_USER", "root")
-    db_password: str = os.getenv("DB_PASSWORD", "beny1234")
+    db_password: str = os.getenv("DB_PASSWORD", "cyber")
     db_name: str = os.getenv("DB_NAME", "qa")
 
 

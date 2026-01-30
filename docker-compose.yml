@@ -9,8 +9,8 @@ services:
       DB_HOST: "103.236.140.19"
       DB_PORT: "3306"
       DB_USER: "root"
-      DB_PASSWORD: "beny1234"
+      DB_PASSWORD: "cyber"  # Updated from beny1234 to match phpMyAdmin
       DB_NAME: "qa"
     restart: unless-stopped
-    network_mode: bridge  # Explicit network mode for external DB access
+    # Removed network_mode to use default bridge network for external DB access
 
