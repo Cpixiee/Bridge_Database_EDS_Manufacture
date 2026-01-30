@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Generator, Optional
 
 import mysql.connector
 from mysql.connector import MySQLConnection
@@ -19,6 +19,8 @@ def get_db_connection() -> MySQLConnection:
         user=settings.db_user,
         password=settings.db_password,
         database=settings.db_name,
+        connection_timeout=10,  # Timeout 10 detik
+        autocommit=True,  # Auto commit untuk menghindari masalah transaction
     )
     return connection
 
@@ -27,7 +29,7 @@ def get_db() -> Generator[MySQLConnection, None, None]:
     """
     Dependency FastAPI untuk menyediakan koneksi DB per-request.
     """
-    connection: MySQLConnection | None = None
+    connection: Optional[MySQLConnection] = None  # Changed from MySQLConnection | None for Python 3.9 compatibility
     try:
         connection = get_db_connection()
         yield connection

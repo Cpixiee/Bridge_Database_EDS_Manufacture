@@ -2,20 +2,29 @@ services:
   api:
     build: .
     container_name: bridge_db_api
-    ports:
-      - "8000:8000"  # Changed from 2026:8000 to match user's expected port
+    # Port mapping tidak diperlukan jika menggunakan network_mode: host
+    # ports:
+    #   - "8000:8000"
     environment:
-      # DB QA (ubah jika perlu)
-      # Opsi DB_HOST (coba satu per satu jika tidak berhasil):
+      # Konfigurasi Database MySQL
+      # Database: qa
+      # User: root
+      # Password: cyber
+      # IP: 103.236.140.19 (server yang sama dengan Docker container)
+      # 
+      # Opsi DB_HOST (coba satu per satu jika timeout):
       # 1. host.docker.internal - untuk akses host dari container (sudah dikonfigurasi di extra_hosts)
-      # 2. 172.17.0.1 - Docker bridge gateway (default)
-      # 3. localhost atau 127.0.0.1 - jika MySQL hanya listen di localhost (perlu network_mode: host)
-      DB_HOST: "host.docker.internal"  # Coba ini dulu
+      # 2. 172.17.0.1 - Docker bridge gateway (default Docker bridge)
+      # 3. 127.0.0.1 - jika MySQL hanya listen di localhost (perlu network_mode: host)
+      # 4. 103.236.140.19 - IP langsung (jika MySQL bind-address = 0.0.0.0)
+      DB_HOST: "127.0.0.1"  # Coba localhost dulu karena MySQL mungkin hanya listen di localhost
       DB_PORT: "3306"
       DB_USER: "root"
-      DB_PASSWORD: "cyber"  # Updated from beny1234 to match phpMyAdmin
+      DB_PASSWORD: "cyber"
       DB_NAME: "qa"
     restart: unless-stopped
-    extra_hosts:
-      - "host.docker.internal:host-gateway"  # Untuk akses host dari container (Linux)
+    network_mode: host  # Gunakan host network agar bisa akses localhost MySQL
+    # Jika network_mode: host tidak bekerja, hapus baris di atas dan uncomment di bawah:
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
 

@@ -23,6 +23,6 @@ class APIResponse(BaseModel):
 
     status: str
     message: str
-    data: Any | None = None
+    data: Optional[Any] = None  # Changed from Any | None for Python 3.9 compatibility
 
 
