@@ -6,11 +6,16 @@ services:
       - "8000:8000"  # Changed from 2026:8000 to match user's expected port
     environment:
       # DB QA (ubah jika perlu)
-      DB_HOST: "103.236.140.19"
+      # Opsi DB_HOST (coba satu per satu jika tidak berhasil):
+      # 1. host.docker.internal - untuk akses host dari container (sudah dikonfigurasi di extra_hosts)
+      # 2. 172.17.0.1 - Docker bridge gateway (default)
+      # 3. localhost atau 127.0.0.1 - jika MySQL hanya listen di localhost (perlu network_mode: host)
+      DB_HOST: "host.docker.internal"  # Coba ini dulu
       DB_PORT: "3306"
       DB_USER: "root"
       DB_PASSWORD: "cyber"  # Updated from beny1234 to match phpMyAdmin
       DB_NAME: "qa"
     restart: unless-stopped
-    # Removed network_mode to use default bridge network for external DB access
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Untuk akses host dari container (Linux)
 
